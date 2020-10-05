@@ -77,3 +77,57 @@ class MyUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+# Possible game genres
+class Genre(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+    shortcut = models.CharField(max_length=10, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+# Representation of single game in DB
+
+
+class Game(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+    minimum_players = models.PositiveSmallIntegerField()
+    maximum_players = models.PositiveSmallIntegerField()
+
+    GOG = models.BooleanField(default=False)
+    Steam = models.BooleanField(default=False)
+    Epic = models.BooleanField(default=False)
+
+    Windows = models.BooleanField(default=False)
+    Linux = models.BooleanField(default=False)
+
+    Coach = models.BooleanField(default=False)
+    LAN = models.BooleanField(default=False)
+    WAN = models.BooleanField(default=False)
+
+    genre = models.ManyToManyField(Genre, blank=True)
+    comment = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class GamePosition(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    bonus_points = models.PositiveSmallIntegerField(default=0)
+
+
+class Poll(models.Model):
+    owner = models.ForeignKey(
+        MyUser, related_name="owner", on_delete=models.CASCADE)
+    guests = models.ManyToManyField(MyUser, related_name="guests")
+    games_positions = models.ManyToManyField(GamePosition)
+    created_at = models.DateTimeField(auto_now_add=True)
+    closed = models.BooleanField(default=False)
+
+
+class Vote(models.Model):
+    game_position = models.ForeignKey(GamePosition, on_delete=models.CASCADE)
+    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    value = models.IntegerField()

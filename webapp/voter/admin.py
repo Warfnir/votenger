@@ -4,6 +4,8 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
 from voter.models import MyUser
+from voter.models import Genre
+from voter.models import Game
 from voter.forms import UserChangeForm, UserCreationForm
 
 
@@ -37,6 +39,8 @@ class UserAdmin(BaseUserAdmin):
 
 # Now register the new UserAdmin...
 admin.site.register(MyUser, UserAdmin)
+admin.site.register(Genre)
+admin.site.register(Game)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
