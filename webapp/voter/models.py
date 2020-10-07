@@ -59,6 +59,9 @@ class MyUser(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name', 'forname', 'nickname']
 
+    # Other non-basic fields
+    friends = models.ManyToManyField('self')
+
     def __str__(self):
         return self.email
 
@@ -87,9 +90,8 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+
 # Representation of single game in DB
-
-
 class Game(models.Model):
     name = models.CharField(max_length=30, unique=True)
     minimum_players = models.PositiveSmallIntegerField()
@@ -113,11 +115,13 @@ class Game(models.Model):
         return self.name
 
 
+# Game position in Poll with strating bonus points
 class GamePosition(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     bonus_points = models.PositiveSmallIntegerField(default=0)
 
 
+# Poll created by user with list of games and guests
 class Poll(models.Model):
     owner = models.ForeignKey(
         MyUser, related_name="owner", on_delete=models.CASCADE)
@@ -127,6 +131,7 @@ class Poll(models.Model):
     closed = models.BooleanField(default=False)
 
 
+# Signle vote for a game in Poll
 class Vote(models.Model):
     game_position = models.ForeignKey(GamePosition, on_delete=models.CASCADE)
     owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)

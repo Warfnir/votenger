@@ -23,6 +23,7 @@ class UserAdmin(BaseUserAdmin):
         (None, {'fields': ('email', 'password')}),
         ('Personal info', {'fields': ('name', 'forname', 'nickname')}),
         ('Permissions', {'fields': ('is_admin',)}),
+        ('Other', {'fields': ('friends',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -34,7 +35,7 @@ class UserAdmin(BaseUserAdmin):
     )
     search_fields = ('email',)
     ordering = ('email',)
-    filter_horizontal = ()
+    filter_horizontal = ('friends',)
 
 
 # Now register the new UserAdmin...
