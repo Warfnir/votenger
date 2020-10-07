@@ -16,6 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from voter.views import IndexView
+from voter.views import LoginView, logout_view
+from voter.views import ProfileView
+
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', IndexView.as_view(), name='index'),
+    path('login', LoginView.as_view(), name='login'),
+    path('logout', logout_view, name='logout'),
+
+    path('profile', ProfileView.as_view(), name='profile'),
 ]

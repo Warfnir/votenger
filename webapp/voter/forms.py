@@ -48,3 +48,8 @@ class UserChangeForm(forms.ModelForm):
         # This is done here, rather than on the field, because the
         # field does not have access to the initial value
         return self.initial["password"]
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(max_length=30, label='email')
+    password = forms.CharField(max_length=30, widget=forms.PasswordInput(), label='password')
