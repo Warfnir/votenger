@@ -1,5 +1,32 @@
 {% extends 'voter/base.html' %}
+{% load static %}
 {% block main %}
+<script src="{% static 'js/profile.js' %}"></script>
     Navbar
     Main content
+    {{user}} <br>
+    {{user.name}} <br>
+    {{user.forname}} <br>
+    {{user.nickname}} <br>
+    {{ user.email}} <br>
+    {{user.friends.all}}
+
+    <form action="#invite_friend" method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="nickname">
+        <input type="email" placeholder="email">
+
+        <button type="submit">Find!</button>
+        Nowa podstrona z wynikami wyszukiwania albo z wyszukiwarka, przy użytkownikach opcja "INVITE"
+
+    </form>
+    <!-- MODAL -->
+    <button type="button" id="findFriend">Find friend!</button>
+    <div class="modal" id="modalWindow">
+        <div class="modal-content">
+            <input type="text" placeholder="email or nickname">
+        </div>
+    </div>
+    <!-- END MODAL -->
+    <a href="#new_poll">Create new poll</a>
 {% endblock %}
