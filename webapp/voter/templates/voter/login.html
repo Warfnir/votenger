@@ -1,9 +1,21 @@
 {% extends 'voter/base.html' %}
 {% block main %}
-    <form action="{% url  'login' %}" method="post">
-        {% csrf_token %}
+<!-- <form action="{% url  'login' %}" method="post">
+       
         {{login_form.as_p}}
         <input type="submit" value="Login">
-    </form>
-    
+    </form> -->
+<div class="center-container">
+    <div class="text-center" style="width: 100%;">
+        <form class="form-signin">
+            {% csrf_token %}
+            <img class="mb-4" src="/docs/4.5/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            {{login_form.as_p}}
+            
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <a href="#" class="badge badge-secondary">Or register now</a>
+        </form>
+    </div>
+</div>
 {% endblock %}

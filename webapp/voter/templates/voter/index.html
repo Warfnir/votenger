@@ -1,7 +1,10 @@
 {% extends 'voter/base.html' %}
 
 {% block main %}
-    In main block
-    <a href="{% url 'logout' %}">Logout</a>
+{% if user.is_authenticated %}    
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+{% endif %}
 {% endblock %}
 
