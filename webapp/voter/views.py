@@ -38,8 +38,8 @@ class LoginView(View):
                 login(request, user)
                 return redirect('index')
             else:
-                pass
-                # user does not exists or wrong data
+                form.add_error(None, "Wrong data or user does not exists.")
+                print(form)
         return render(request, self.template_name, context={'login_form': form})
 
 
