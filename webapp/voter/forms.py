@@ -51,5 +51,5 @@ class UserChangeForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(max_length=30, label='email')
-    password = forms.CharField(max_length=30, widget=forms.PasswordInput(), label='password')
+    email = forms.EmailField(max_length=30, label='Email address')
+    password = forms.CharField(max_length=30, widget=forms.PasswordInput(), label='Password')
